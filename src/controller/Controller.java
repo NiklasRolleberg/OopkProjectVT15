@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import view.AddConversationView;
 import view.ConversationView;
 import view.MainView;
 import model.Model;
@@ -18,14 +19,16 @@ public class Controller implements Observer, ActionListener{
 	
 	public Controller() {
 		model = new Model();
-		mainView = new MainView();
+		mainView = new MainView(this);
 		ConversationView cv = new ConversationView();
 	}
 	
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
+		//create newCOnversationView
+		AddConversationView acvm = new AddConversationView(this);
 	}
 
 	@Override
