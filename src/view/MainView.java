@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 
 import controller.Controller;
 
@@ -56,6 +55,9 @@ public class MainView {
 		
 		newConversationButton = new JButton("New conversation");
 		settingsButton =  new JButton("Settings");
+		
+		newConversationButton.addActionListener(controller);
+		settingsButton.addActionListener(controller);
 		
 		buttonContainer = new JPanel();
 		buttonContainer.setLayout(new BoxLayout(buttonContainer, BoxLayout.LINE_AXIS));

@@ -8,6 +8,7 @@ import java.util.Observer;
 import view.AddConversationView;
 import view.ConversationView;
 import view.MainView;
+import view.SettingsView;
 import model.Model;
 import model.Server;
 
@@ -26,9 +27,21 @@ public class Controller implements Observer, ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+	
 		//create newCOnversationView
-		AddConversationView acvm = new AddConversationView(this);
+		if(arg0.getActionCommand() == "New conversation")
+		{
+			AddConversationView acvm = new AddConversationView(this);
+		}
+		
+		else if(arg0.getActionCommand() == "Settings") {
+			SettingsView sv = new SettingsView(this);
+		}
+		
+		else {
+			ConversationView cv = new ConversationView();
+		}
+		
 	}
 
 	@Override
