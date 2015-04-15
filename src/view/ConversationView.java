@@ -1,15 +1,21 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 
 
-public class ConversationView {
+public class ConversationView implements ActionListener  {
 	
 	JButton myButtonsend;
 	JButton myButtonadd;
@@ -47,9 +53,12 @@ public class ConversationView {
 		myButtonremove = new JButton("Remove");
 		myButtonadd = new JButton("Add");
 		
+		myButtonadd.addActionListener(this);
+		myButtonremove.addActionListener(this);
+		
 		myFrame = new JFrame();
 		myFrame.setPreferredSize(new Dimension(400,300));
-		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		myFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		myFrame.setVisible(true);
 		myFrame.pack();
 		
@@ -72,6 +81,64 @@ public class ConversationView {
 		
 		
 		
+	}
+
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+	if (e.getActionCommand() == "Add"){
+		JFrame myFrame2 = new JFrame();
+		myFrame2 = new JFrame();
+		myFrame2.setPreferredSize(new Dimension(200,200));
+		myFrame2.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		myFrame2.setVisible(true);
+		myFrame2.pack();
+		
+		JButton b1 = new JButton("Ok");
+		
+		JPanel p1 = new JPanel();
+		p1.setLayout(new BoxLayout(p1, BoxLayout.PAGE_AXIS));
+		
+		JTextField t1 = new JTextField("110.1156.625.1");
+		JTextField t2 = new JTextField("6666");
+		
+		JLabel l1 = new JLabel("Ip-address"); 
+		JLabel l2 = new JLabel("Port");
+		p1.add(l1);
+		p1.add(t1);
+		p1.add(l2);
+		p1.add(t2);
+		p1.add(b1);
+		
+		myFrame2.add(p1);
+	}
+	if (e.getActionCommand() == "Remove"){
+		JFrame myFrame3 = new JFrame();
+		myFrame3 = new JFrame();
+		myFrame3.setPreferredSize(new Dimension(200,200));
+		myFrame3.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		myFrame3.setVisible(true);
+		myFrame3.pack();
+		
+		
+		
+		JPanel p1 = new JPanel();
+		p1.setLayout(new BoxLayout(p1,BoxLayout.PAGE_AXIS));
+		JButton b1 = new JButton("Remove");
+		myFrame3.add(p1);
+		
+		for(int i=0;i< 30;i++) {
+			JToggleButton conversation = new JToggleButton("Conversation "+(i+1));
+			conversation.setBackground(Color.WHITE);
+			conversation.setBorderPainted(true);
+			JPanel temp = new JPanel();
+			temp.setLayout(new BorderLayout());
+			temp.add(conversation,BorderLayout.CENTER);
+			p1.add(temp);
+		}
+		p1.add(b1);
+	}
 	}
 
 	
