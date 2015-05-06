@@ -41,6 +41,8 @@ public class Model extends Observable implements Observer{
 	public void AddConversation(String ip, int port, String name) {
 		try {
 			Conversation c = new Conversation(ip, port);
+			Thread t = new Thread(c);
+			t.start();
 			conversations.add(c);
 		} catch (IOException e) {
 			System.out.println("Connection failed");

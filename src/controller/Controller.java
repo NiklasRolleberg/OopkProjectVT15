@@ -24,7 +24,7 @@ public class Controller implements Observer, ActionListener{
 		ConversationView cv = new ConversationView();
 		
 		//testsaker
-		String ip = "192.168.3325251.3498";
+		String ip = "130.229.143.191";
 		int port = 4444;
 		model.AddConversation(ip, port, "Test");
 		
