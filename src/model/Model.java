@@ -1,7 +1,9 @@
 package model;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -37,7 +39,13 @@ public class Model extends Observable implements Observer{
 	 * name of conversation
 	 */
 	public void AddConversation(String ip, int port, String name) {
-		// TODO Create conversation object and add to list
+		try {
+			Conversation c = new Conversation(ip, port);
+			conversations.add(c);
+		} catch (IOException e) {
+			System.out.println("Connection failed");
+			e.printStackTrace();
+		}
 	}
 	
 	/** remove conversation
