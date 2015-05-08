@@ -50,6 +50,10 @@ public class Model extends Observable implements Observer{
 		}
 	}
 	
+	public Conversation getConversation(){
+		return conversations.get(0);
+	}
+	
 	/** remove conversation
 	 * @param name
 	 * name of conversation, might change

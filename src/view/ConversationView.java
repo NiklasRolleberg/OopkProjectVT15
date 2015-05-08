@@ -5,17 +5,22 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
+import model.Conversation;
 
-public class ConversationView implements ActionListener  {
+
+public class ConversationView implements ActionListener {
 	
 	JButton myButtonsend;
 	JButton myButtonadd;
@@ -28,13 +33,13 @@ public class ConversationView implements ActionListener  {
 	JPanel myContainerchat;
 	JPanel myContainerbutton;
 	
-	JTextField myTextchat;
+	JTextArea myTextchat;
 	JTextField myTextwrite;
 	
-	
+	Conversation messageConversation;
 	
 	public ConversationView() {
-		myTextchat = new JTextField();
+		myTextchat = new JTextArea();
 		myTextwrite = new JTextField();
 		
 		
@@ -55,6 +60,7 @@ public class ConversationView implements ActionListener  {
 		
 		myButtonadd.addActionListener(this);
 		myButtonremove.addActionListener(this);
+		myButtonsend.addActionListener(this);
 		
 		myFrame = new JFrame();
 		myFrame.setPreferredSize(new Dimension(400,300));
@@ -83,10 +89,28 @@ public class ConversationView implements ActionListener  {
 		
 	}
 
+	public void updateDisplay(String hist){
+		myTextchat.setText(hist);
+	}
+	
+	public void setConversation(Conversation b){
+		messageConversation=b;
+	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+	if (e.getActionCommand() == "Send")	{
+		String h;
+		h=myTextwrite.getText();
+		messageConversation.sendMessage(h);
+		myTextwrite.setText("");
+	}
+		
+		
+		
+		
 	if (e.getActionCommand() == "Add"){
 		JFrame myFrame2 = new JFrame();
 		myFrame2 = new JFrame();
@@ -140,6 +164,9 @@ public class ConversationView implements ActionListener  {
 		p1.add(b1);
 	}
 	}
+
+
+
 
 	
 }

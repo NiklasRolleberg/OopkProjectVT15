@@ -9,6 +9,7 @@ import view.AddConversationView;
 import view.ConversationView;
 import view.MainView;
 import view.SettingsView;
+import model.Conversation;
 import model.Model;
 import model.Server;
 
@@ -21,13 +22,16 @@ public class Controller implements Observer, ActionListener{
 	public Controller() {
 		model = new Model();
 		mainView = new MainView(this);
-		ConversationView cv = new ConversationView();
+		//ConversationView cv = new ConversationView();
 		
 		//testsaker
-		String ip = "130.229.143.191";
+		String ip = "130.229.162.162";
 		int port = 4444;
 		model.AddConversation(ip, port, "Test");
-		
+		Conversation c = model.getConversation();
+		ConversationView cv = new ConversationView();
+		c.setView(cv);
+		cv.setConversation(c);
 	}
 	
 

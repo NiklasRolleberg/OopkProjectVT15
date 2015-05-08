@@ -9,11 +9,16 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import view.ConversationView;
+
 
 public class Conversation extends Observable implements Runnable  {
 
 	ArrayList<Socket> connections;
-
+	ConversationView cv;
+	PrintWriter out = null;
+    BufferedReader in = null;
+    String chatHistory="";
 	
 	/**
 	 * create conversation from ip and port
@@ -39,14 +44,22 @@ public class Conversation extends Observable implements Runnable  {
 		
 	}
 	
+	public void setView(ConversationView v){
+		cv=v;
+	}
 	
+	public void sendMessage(String s){
+		System.out.println("sending message");
+		out.print("<message sender =" + '"' + "Marcus" + '"' + "> <text color=" + '"' + "#RRGGBB" + '"' + "> "+s+"</text> </message>");
+		out.flush();
+		chatHistory += "me" + s + "\n";
+		cv.updateDisplay(chatHistory);
+	}
 	
 	@Override
 	public void run() {
 		
-
-        PrintWriter out = null;
-        BufferedReader in = null;
+        
 
 
 	BufferedReader stdIn;
@@ -71,13 +84,15 @@ public class Conversation extends Observable implements Runnable  {
 
 	System.out.println("Connection successful!");
 
-	stdIn = new BufferedReader(new InputStreamReader(System.in));
-                                   
+	//stdIn = new BufferedReader(new InputStreamReader(System.in));
+        String inStr;                           
 
 	try {
-		while ((userInput = stdIn.readLine()) != null) {
-		    out.println(userInput);
-		    System.out.println("echo: " + in.readLine());
+		while ((inStr = in.readLine()) != null) {
+		    //out.println(userInput);
+		    System.out.println("echo: " + inStr);
+		    chatHistory += inStr + "\n";
+		    cv.updateDisplay(chatHistory);
 		}
 	} catch (IOException e1) {
 
@@ -88,7 +103,7 @@ public class Conversation extends Observable implements Runnable  {
 	out.close();
 	try {
 		in.close();
-		stdIn.close();
+		//stdIn.close();
 		connections.get(0).close();
 	} catch (IOException e) {
 
