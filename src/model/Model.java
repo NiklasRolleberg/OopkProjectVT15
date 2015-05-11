@@ -44,6 +44,8 @@ public class Model extends Observable implements Observer{
 			Thread t = new Thread(c);
 			t.start();
 			conversations.add(c);
+			setChanged();
+			notifyObservers();
 		} catch (IOException e) {
 			System.out.println("Connection failed");
 			e.printStackTrace();
@@ -77,20 +79,18 @@ public class Model extends Observable implements Observer{
 	public String getColor() {
 		return myColor;
 	}
-	
-	/**
-	 * starts a new conversation
-	 * @param conName
-	 * @param ip
-	 * @param port
-	 */
-
-	
-	
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		//TODO something. this method will be called when a conversation recives a message
+	}
+
+	/** Get all conversations
+	 * @return
+	 * conversations
+	 */
+	public ArrayList<Conversation> getConversations() {
+		return conversations;
 	}
 	
 }

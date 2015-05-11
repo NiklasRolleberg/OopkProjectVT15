@@ -21,17 +21,20 @@ public class Controller implements Observer, ActionListener{
 	
 	public Controller() {
 		model = new Model();
-		mainView = new MainView(this);
+		mainView = new MainView(this, model);
+		model.addObserver(mainView);
 		//ConversationView cv = new ConversationView();
 		
 		//testsaker
+		/*
 		String ip = "130.229.162.162";
 		int port = 4444;
 		model.AddConversation(ip, port, "Test");
 		Conversation c = model.getConversation();
 		ConversationView cv = new ConversationView();
 		c.setView(cv);
-		cv.setConversation(c);
+		cv.setConversation(c)
+		*/
 	}
 	
 
@@ -64,6 +67,10 @@ public class Controller implements Observer, ActionListener{
 	 */
 	public void addConverstion(String conName,String ip,int port){
 		model.AddConversation(ip, port, conName);
+		Conversation c = model.getConversation();
+		ConversationView cv = new ConversationView();
+		c.setView(cv);
+		cv.setConversation(c);
 	}
 	
 
