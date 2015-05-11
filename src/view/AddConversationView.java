@@ -38,6 +38,7 @@ public class AddConversationView  implements ActionListener {
 		okButton = new JButton("OK");
 		okButton.addActionListener(this);
 		
+		
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 				
 		JTextArea name = new JTextArea("Name");
@@ -74,9 +75,10 @@ public class AddConversationView  implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String myName = "hej";
-		String myIp = "130.229.157.87";
-		int myPort = 4444;
+		String myName = nameField.getText();
+		String myIp = ipField.getText();
+		int myPort = Integer.parseInt( portField.getText());
+		frame.setVisible(false);
 		controller.addConverstion(myName, myIp, myPort);
 		
 		

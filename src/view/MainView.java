@@ -97,8 +97,10 @@ public class MainView implements Observer{
 			JPanel temp = new JPanel();
 			temp.setLayout(new BorderLayout());
 			temp.add(conversation,BorderLayout.CENTER);
-			conversationList.add(temp);
+			conversationList.add(temp); 
 			frame.invalidate();
+			
+			
 		}
 	}
 
