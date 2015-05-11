@@ -19,6 +19,7 @@ public class Conversation extends Observable implements Runnable  {
 	PrintWriter out = null;
     BufferedReader in = null;
     String chatHistory="";
+    Model model;
 	
 	/**
 	 * create conversation from ip and port
@@ -29,16 +30,16 @@ public class Conversation extends Observable implements Runnable  {
 	 * @throws IOException 
 	 * @throws UnknownHostException 
 	 */
-	Conversation(String ipIn, int portIn) throws UnknownHostException, IOException{
-		this(new Socket(ipIn,portIn));
-		
+	Conversation(Model model, String ipIn, int portIn) throws UnknownHostException, IOException{
+		this(model, new Socket(ipIn,portIn));
 	}
 	
 	/**
 	 * create conversation from connected socket
 	 * @param socketIn connected socket
 	 */
-	Conversation(Socket socketIn){
+	Conversation(Model model, Socket socketIn){
+		this.model = model;
 		connections = new ArrayList<Socket>(); 
 		connections.add(socketIn);
 		
@@ -50,7 +51,7 @@ public class Conversation extends Observable implements Runnable  {
 	
 	public void sendMessage(String s){
 		System.out.println("sending message");
-		out.print("<message sender =" + '"' + "Marcus" + '"' + "> <text color=" + '"' + "#RRGGBB" + '"' + "> "+s+"</text> </message>");
+		out.print("<message sender =" + '"' + model.getName() + '"' + "> <text color=" + '"' + "#RRGGBB" + '"' + "> "+s+"</text> </message>");
 		out.flush();
 		chatHistory += "me" + s + "\n";
 		cv.updateDisplay(chatHistory);

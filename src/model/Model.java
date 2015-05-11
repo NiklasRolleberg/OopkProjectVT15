@@ -11,8 +11,8 @@ import java.util.Observer;
 public class Model extends Observable implements Observer{
 	
 	ArrayList<Conversation> conversations;
-	String myName;
-	Color myColor;
+	String myName = "Marcus";
+	String myColor = "#0f0f0f";
 	
 	
 	
@@ -40,7 +40,7 @@ public class Model extends Observable implements Observer{
 	 */
 	public void AddConversation(String ip, int port, String name) {
 		try {
-			Conversation c = new Conversation(ip, port);
+			Conversation c = new Conversation(this, ip, port);
 			Thread t = new Thread(c);
 			t.start();
 			conversations.add(c);
@@ -60,6 +60,22 @@ public class Model extends Observable implements Observer{
 	 */
 	public void removeConversation(String name) {
 		//TODO close and remove the conversation
+	}
+	
+	/**
+	 * @return
+	 * name
+	 */
+	public String getName() {
+		return myName;
+	}
+	
+	/**
+	 * @return
+	 * color as a string
+	 */
+	public String getColor() {
+		return myColor;
 	}
 	
 	
