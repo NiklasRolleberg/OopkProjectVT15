@@ -41,7 +41,7 @@ public class ConversationView implements ActionListener {
 	public ConversationView() {
 		myTextchat = new JTextArea();
 		myTextwrite = new JTextField();
-		
+		myTextchat.setEditable(false);
 		
 		myPanel = new JPanel();
 		myPanel.setLayout(new BorderLayout());

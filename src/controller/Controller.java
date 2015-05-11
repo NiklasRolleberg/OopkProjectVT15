@@ -53,6 +53,19 @@ public class Controller implements Observer, ActionListener{
 		}
 		
 	}
+	/**
+	 * add new conversation
+	 * @param conName
+	 * conversation name
+	 * @param ip
+	 * ip address
+	 * @param port
+	 * port
+	 */
+	public void addConverstion(String conName,String ip,int port){
+		model.AddConversation(ip, port, conName);
+	}
+	
 
 	@Override
 	public void update(Observable arg0, Object arg1) {

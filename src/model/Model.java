@@ -78,6 +78,14 @@ public class Model extends Observable implements Observer{
 		return myColor;
 	}
 	
+	/**
+	 * starts a new conversation
+	 * @param conName
+	 * @param ip
+	 * @param port
+	 */
+
+	
 	
 
 	@Override
