@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.Socket;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -23,6 +24,7 @@ public class Controller implements Observer, ActionListener{
 		model = new Model();
 		mainView = new MainView(this, model);
 		model.addObserver(mainView);
+		
 		//ConversationView cv = new ConversationView();
 		
 		//testsaker
@@ -71,6 +73,27 @@ public class Controller implements Observer, ActionListener{
 		ConversationView cv = new ConversationView();
 		c.setView(cv);
 		cv.setConversation(c);
+	}
+	
+	/**
+	 * add new conversation
+	 * @param conName
+	 * conversation name
+	 * @param 
+	 * socket
+	 */
+	public void addConverstion(String conName, Socket socket){
+		model.AddConversation(socket, conName);
+		Conversation c = model.getConversation();
+		ConversationView cv = new ConversationView();
+		c.setView(cv);
+		cv.setConversation(c);
+	}
+	
+	public void startServer (int port){
+		server = new Server(port , this);
+		Thread t = new Thread(server);
+		t.start();
 	}
 	
 

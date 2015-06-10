@@ -25,9 +25,15 @@ public class Model extends Observable implements Observer{
 	/** create new conversation from a connected socket
 	 * @param s
 	 * connected socket
+	 * @param conName 
 	 */
-	public void AddConversation(Socket s) {
-		// TODO Create conversation object and add to list
+	public void AddConversation(Socket s, String conName) {
+		Conversation c = new Conversation(this, s);
+		Thread t = new Thread(c);
+		t.start();
+		conversations.add(c);
+		setChanged();
+		notifyObservers();
 	}
 	
 	/** create new conversation from ip and port
@@ -53,7 +59,7 @@ public class Model extends Observable implements Observer{
 	}
 	
 	public Conversation getConversation(){
-		return conversations.get(0);
+		return conversations.get(conversations.size()-1);
 	}
 	
 	/** remove conversation

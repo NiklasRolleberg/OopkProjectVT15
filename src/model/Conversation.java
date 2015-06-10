@@ -86,7 +86,7 @@ public class Conversation extends Observable implements Runnable  {
 					int l = color.indexOf('>');
 					color = color.substring(0, l);
 					System.out.println(color);
-				chatHistory += color;
+				
 				}
 				if (message.contains("color=")){
 					int k;
@@ -96,7 +96,7 @@ public class Conversation extends Observable implements Runnable  {
 					int l = msg.indexOf("</");
 					msg = msg.substring(0, l);
 					System.out.println(msg);
-				chatHistory += msg;
+				chatHistory += msg +"\n";
 				}
 			   cv.updateDisplay(chatHistory);   
 	}
