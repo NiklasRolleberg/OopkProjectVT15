@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,6 +21,9 @@ public class Conversation extends Observable implements Runnable  {
     BufferedReader in = null;
     String chatHistory="";
     Model model;
+    Scanner scanner;
+    StringBuffer sb1;
+
 	
 	/**
 	 * create conversation from ip and port
@@ -51,11 +55,52 @@ public class Conversation extends Observable implements Runnable  {
 	
 	public void sendMessage(String s){
 		System.out.println("sending message");
-		out.print("<message sender =" + '"' + model.getName() + '"' + "> <text color=" + '"' + "#RRGGBB" + '"' + "> "+s+"</text> </message>");
+		out.print("<message sender=" + '"' + model.getName() + '"' + "> <text color=#00ff00> "+s+"</text> </message>");
 		out.flush();
-		chatHistory += "me" + s + "\n";
+		chatHistory += "me " + s + "\n";
 		cv.updateDisplay(chatHistory);
 	}
+	
+	
+	private void receive(String message){
+		 System.out.println("echo: " + message);
+		    //chatHistory += message + "\n";
+		    
+		    
+			   if (message.contains("sender="))  {
+				   int k;
+				   k = message.indexOf("sender=");
+				   k = k+8;
+				   
+				  String name = message.substring(k);
+				  int l = name.indexOf('"');
+				    name = name.substring(0, l);
+				   System.out.println(name);
+				chatHistory += name;
+			   }
+				if (message.contains("color=")){
+					int k;
+					k = message.indexOf("color=");
+					k = k+7;
+					String color = message.substring(k);
+					int l = color.indexOf('>');
+					color = color.substring(0, l);
+					System.out.println(color);
+				chatHistory += color;
+				}
+				if (message.contains("color=")){
+					int k;
+					k = message.indexOf("color=");
+					k = k+14;
+					String msg = message.substring(k);
+					int l = msg.indexOf("</");
+					msg = msg.substring(0, l);
+					System.out.println(msg);
+				chatHistory += msg;
+				}
+			   cv.updateDisplay(chatHistory);   
+	}
+	
 	
 	@Override
 	public void run() {
@@ -73,6 +118,9 @@ public class Conversation extends Observable implements Runnable  {
             out = new PrintWriter(connections.get(0).getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(
                                         connections.get(0).getInputStream()));
+            scanner = new Scanner(in).useDelimiter("</message>");
+            
+            
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host.\n" + e);
             System.exit(1);
@@ -85,17 +133,16 @@ public class Conversation extends Observable implements Runnable  {
 
 	System.out.println("Connection successful!");
 
+	
 	//stdIn = new BufferedReader(new InputStreamReader(System.in));
         String inStr;                           
 
 	try {
-		while ((inStr = in.readLine()) != null) {
+		while ((inStr = scanner.next()) != null) {
 		    //out.println(userInput);
-		    System.out.println("echo: " + inStr);
-		    chatHistory += inStr + "\n";
-		    cv.updateDisplay(chatHistory);
+		    this.receive(inStr);
 		}
-	} catch (IOException e1) {
+	} catch (Exception e1) {
 
 		e1.printStackTrace();
 	}
@@ -113,4 +160,6 @@ public class Conversation extends Observable implements Runnable  {
 	
 
 	}
+
+	
 }

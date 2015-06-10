@@ -81,6 +81,12 @@ public class Controller implements Observer, ActionListener{
 
 	
 	public static void main(String[] args) {
+		String message  = "<message sender="+ '"' + "Niklas" + '"' + "><text color=" + '"' + "#RRGGBB" + '"' + "> hejsan </text>";
+		
+
+
+		
+		
 		System.out.println("JAG LEVER idag!");
 		Controller c = new Controller();
 	}
