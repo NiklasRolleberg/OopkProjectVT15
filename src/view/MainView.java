@@ -88,8 +88,21 @@ public class MainView implements Observer{
 		System.out.println("Something changed in model");
 		System.out.println("Udpading buttons");
 		System.out.println("Conversations.size: " + model.getConversations().size());
-		int i=0;
+		/*
+		int i=0; 
 		for(Conversation c: model.getConversations()) {
+			JPanel temp = new JPanel();
+			temp.setLayout(new BorderLayout());
+			temp.add(c.conversationButton,BorderLayout.CENTER);
+			conversationList.add(temp); 
+			frame.invalidate();
+			
+			
+		}
+		
+		*/
+		
+		for(int i=0;i< 30;i++) {
 			JButton conversation = new JButton("Conversation "+(i+1));
 			conversation.setBackground(Color.WHITE);
 			conversation.setBorderPainted(true);
@@ -97,10 +110,9 @@ public class MainView implements Observer{
 			JPanel temp = new JPanel();
 			temp.setLayout(new BorderLayout());
 			temp.add(conversation,BorderLayout.CENTER);
-			conversationList.add(temp); 
-			frame.invalidate();
+			conversationList.add(temp);
 			
-			
+			scroll.invalidate();
 		}
 	}
 

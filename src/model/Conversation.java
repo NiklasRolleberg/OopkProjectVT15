@@ -3,12 +3,16 @@ package model;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Scanner;
+import java.awt.Button;
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import javax.swing.JButton;
 
 import view.ConversationView;
 
@@ -23,6 +27,7 @@ public class Conversation extends Observable implements Runnable  {
     Model model;
     Scanner scanner;
     StringBuffer sb1;
+    public JButton conversationButton;
 
 	
 	/**
@@ -46,6 +51,11 @@ public class Conversation extends Observable implements Runnable  {
 		this.model = model;
 		connections = new ArrayList<Socket>(); 
 		connections.add(socketIn);
+		conversationButton = new JButton("Chat 1");
+		conversationButton.setBackground(Color.WHITE);
+		conversationButton.setBorderPainted(true);
+	
+
 		
 	}
 	

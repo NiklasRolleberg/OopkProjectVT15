@@ -27,8 +27,9 @@ public class SettingsView implements ActionListener  {
 	
 	/** In this window you can change your name and color
 	 */
-	public SettingsView(Controller controller) {
+	public SettingsView(Controller controller,boolean serverOn ) {
 		this.controller = controller;
+		
 		frame = new JFrame();
 		container = new JPanel();
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
@@ -40,6 +41,7 @@ public class SettingsView implements ActionListener  {
 		serverButton = new JButton("Start Server");
 		okButton = new JButton("OK");
 		serverButton.addActionListener(this);
+		serverButton.setEnabled(!serverOn);
 		
 		container.add(new JLabel("name"));
 		container.add(nameField);

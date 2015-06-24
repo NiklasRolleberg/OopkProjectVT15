@@ -20,6 +20,7 @@ public class Controller implements Observer, ActionListener{
 	Server server;
 	MainView mainView;
 	
+	
 	public Controller() {
 		model = new Model();
 		mainView = new MainView(this, model);
@@ -50,12 +51,9 @@ public class Controller implements Observer, ActionListener{
 		}
 		
 		else if(arg0.getActionCommand() == "Settings") {
-			SettingsView sv = new SettingsView(this);
+			SettingsView sv = new SettingsView(this,server!=null);
 		}
-		
-		else {
-			ConversationView cv = new ConversationView();
-		}
+
 		
 	}
 	/**
@@ -94,6 +92,7 @@ public class Controller implements Observer, ActionListener{
 		server = new Server(port , this);
 		Thread t = new Thread(server);
 		t.start();
+		
 	}
 	
 
