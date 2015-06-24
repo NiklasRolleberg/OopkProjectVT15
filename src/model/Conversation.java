@@ -20,7 +20,7 @@ import view.ConversationView;
 public class Conversation extends Observable implements Runnable  {
 
 	ArrayList<Socket> connections;
-	ConversationView cv;
+	public ConversationView cv;
 	PrintWriter out = null;
     BufferedReader in = null;
     String chatHistory="";
@@ -39,19 +39,19 @@ public class Conversation extends Observable implements Runnable  {
 	 * @throws IOException 
 	 * @throws UnknownHostException 
 	 */
-	Conversation(Model model, String ipIn, int portIn) throws UnknownHostException, IOException{
-		this(model, new Socket(ipIn,portIn));
+	Conversation(Model model, String ipIn, int portIn, String name) throws UnknownHostException, IOException{
+		this(model, new Socket(ipIn,portIn), name);
 	}
 	
 	/**
 	 * create conversation from connected socket
 	 * @param socketIn connected socket
 	 */
-	Conversation(Model model, Socket socketIn){
+	Conversation(Model model, Socket socketIn,String name){
 		this.model = model;
 		connections = new ArrayList<Socket>(); 
 		connections.add(socketIn);
-		conversationButton = new JButton("Chat 1");
+		conversationButton = new JButton(name);
 		conversationButton.setBackground(Color.WHITE);
 		conversationButton.setBorderPainted(true);
 	

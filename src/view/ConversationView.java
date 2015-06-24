@@ -163,9 +163,13 @@ public class ConversationView implements ActionListener {
 		}
 		p1.add(b1);
 	}
+	
+
 	}
 
-
+	public void setVisible(){
+		this.myFrame.setVisible(true);
+	}
 
 
 	

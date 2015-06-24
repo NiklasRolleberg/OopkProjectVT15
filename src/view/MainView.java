@@ -3,6 +3,8 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,10 +16,9 @@ import javax.swing.JScrollPane;
 
 import model.Conversation;
 import model.Model;
-
 import controller.Controller;
 
-public class MainView implements Observer{
+public class MainView extends Observable implements  Observer, ActionListener {
 
 	JFrame frame;
 	JPanel container;
@@ -38,7 +39,7 @@ public class MainView implements Observer{
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setPreferredSize(new Dimension(220,500));
-		frame.setResizable(false);
+		frame.setResizable(true);
 		
 		container = new JPanel();
 		container.setLayout(new BorderLayout());
@@ -88,32 +89,45 @@ public class MainView implements Observer{
 		System.out.println("Something changed in model");
 		System.out.println("Udpading buttons");
 		System.out.println("Conversations.size: " + model.getConversations().size());
-		/*
-		int i=0; 
+		 
 		for(Conversation c: model.getConversations()) {
 			JPanel temp = new JPanel();
 			temp.setLayout(new BorderLayout());
+			boolean b = true;
+			for (ActionListener a: c.conversationButton.getActionListeners()){
+				if (a.equals(this)) 
+					b= false;
+
+				
+							
+			}
+			if (b){
+				c.conversationButton.addActionListener(this);
+			}
+			
 			temp.add(c.conversationButton,BorderLayout.CENTER);
 			conversationList.add(temp); 
-			frame.invalidate();
+
+			
 			
 			
 		}
-		
-		*/
-		
-		for(int i=0;i< 30;i++) {
-			JButton conversation = new JButton("Conversation "+(i+1));
-			conversation.setBackground(Color.WHITE);
-			conversation.setBorderPainted(true);
-			conversation.addActionListener(controller);
-			JPanel temp = new JPanel();
-			temp.setLayout(new BorderLayout());
-			temp.add(conversation,BorderLayout.CENTER);
-			conversationList.add(temp);
+		frame.revalidate();
+		frame.repaint();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		for (Conversation c: model.getConversations()){
+			if (c.conversationButton.getText() == arg0.getActionCommand()){
+				this.setChanged();
+				this.notifyObservers(c);
+			}
 			
-			scroll.invalidate();
 		}
+	
+		
 	}
 
 }

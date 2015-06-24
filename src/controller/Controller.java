@@ -25,6 +25,7 @@ public class Controller implements Observer, ActionListener{
 		model = new Model();
 		mainView = new MainView(this, model);
 		model.addObserver(mainView);
+		mainView.addObserver(this);
 		
 		//ConversationView cv = new ConversationView();
 		
@@ -99,6 +100,13 @@ public class Controller implements Observer, ActionListener{
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
+		if (arg0 == mainView){
+
+			if (arg1 instanceof Conversation){
+				Conversation c = (Conversation)arg1;
+				c.cv.setVisible();
+			}
+		}
 	}
 
 	

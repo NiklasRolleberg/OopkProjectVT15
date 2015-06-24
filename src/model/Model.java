@@ -13,6 +13,7 @@ public class Model extends Observable implements Observer{
 	ArrayList<Conversation> conversations;
 	String myName = "Marcus";
 	String myColor = "#0f0f0f";
+	int number = 1;
 	
 	
 	
@@ -28,7 +29,7 @@ public class Model extends Observable implements Observer{
 	 * @param conName 
 	 */
 	public void AddConversation(Socket s, String conName) {
-		Conversation c = new Conversation(this, s);
+		Conversation c = new Conversation(this, s,"chatt"+ (number ++));
 		Thread t = new Thread(c);
 		t.start();
 		conversations.add(c);
@@ -46,7 +47,7 @@ public class Model extends Observable implements Observer{
 	 */
 	public void AddConversation(String ip, int port, String name) {
 		try {
-			Conversation c = new Conversation(this, ip, port);
+			Conversation c = new Conversation(this, ip, port,"chatt"+ (number ++));
 			Thread t = new Thread(c);
 			t.start();
 			conversations.add(c);
