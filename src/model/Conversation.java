@@ -65,9 +65,10 @@ public class Conversation extends Observable implements Runnable  {
 	
 	public void sendMessage(String s){
 		System.out.println("sending message");
-		out.print("<message sender=" + '"' + model.getName() + '"' + "> <text color=#00ff00> "+s+"</text> </message>");
+		out.print("<message sender=" + '"' + model.getName() + '"' + "> <text color="+ model.getColor() +"> "+s+"</text> </message>");
 		out.flush();
-		chatHistory += "<p style='font-family:arial;color:"+"#00ff00"+">"+model.getName()+": "+s+"</p>" ;
+		chatHistory += "<p style='font-family:arial;color:" + model.getColor() + ";font-size:10px;'>"+ model.getName() +": "+ s+"</p>";
+		System.out.println(model.getColor());
 		cv.updateDisplay(chatHistory);
 		System.out.println("hej");
 	}
@@ -89,7 +90,6 @@ public class Conversation extends Observable implements Runnable  {
 				  int l = name.indexOf('"');
 				    name = name.substring(0, l);
 				   System.out.println(name);
-				chatHistory += name;
 			   }
 				if (message.contains("color=")){
 					int k;
@@ -110,8 +110,11 @@ public class Conversation extends Observable implements Runnable  {
 					msg = msg.substring(0, l);
 					System.out.println(msg);
 				}
-				chatHistory += "<p style='font-family:arial;color:"+color
-						+";font-size:10px;'>"+name+": "+msg+"</p>";
+				/*chatHistory += "<p style='font-family:arial;color:"+color
+						+";font-size:10px;'>"+name+": "+msg+"</p>";*/
+				
+				chatHistory += "<p style='font-family:arial;color:" + color + ";font-size:10px;'>"+ name +": "+ msg +"</p>";
+				
 				
 			   cv.updateDisplay(chatHistory);   
 	}

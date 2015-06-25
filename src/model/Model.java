@@ -12,7 +12,7 @@ public class Model extends Observable implements Observer{
 	
 	ArrayList<Conversation> conversations;
 	String myName = "Marcus";
-	String myColor = "#0f0f0f";
+	String myColor = "#ff0000";
 	int number = 1;
 	
 	
