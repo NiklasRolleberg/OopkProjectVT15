@@ -10,6 +10,7 @@ import java.util.Observer;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -33,13 +34,14 @@ public class ConversationView implements ActionListener {
 	JPanel myContainerchat;
 	JPanel myContainerbutton;
 	
-	JTextArea myTextchat;
+	JEditorPane myTextchat;
 	JTextField myTextwrite;
 	
 	Conversation messageConversation;
 	
 	public ConversationView() {
-		myTextchat = new JTextArea();
+		myTextchat = new JEditorPane();
+		myTextchat.setContentType("text/html");
 		myTextwrite = new JTextField();
 		myTextchat.setEditable(false);
 		
@@ -90,7 +92,10 @@ public class ConversationView implements ActionListener {
 	}
 
 	public void updateDisplay(String hist){
-		myTextchat.setText(hist);
+		myTextchat.setText(hist+"</body></html>");
+		myTextchat.revalidate();
+		myTextchat.repaint();
+		System.out.println(hist);
 	}
 	
 	public void setConversation(Conversation b){

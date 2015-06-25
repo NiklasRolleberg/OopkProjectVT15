@@ -23,7 +23,7 @@ public class Conversation extends Observable implements Runnable  {
 	public ConversationView cv;
 	PrintWriter out = null;
     BufferedReader in = null;
-    String chatHistory="";
+    String chatHistory="<html><head><title></title></head><body bgcolor= '#FFFFFFF'> ";
     Model model;
     Scanner scanner;
     StringBuffer sb1;
@@ -67,22 +67,25 @@ public class Conversation extends Observable implements Runnable  {
 		System.out.println("sending message");
 		out.print("<message sender=" + '"' + model.getName() + '"' + "> <text color=#00ff00> "+s+"</text> </message>");
 		out.flush();
-		chatHistory += "me " + s + "\n";
+		chatHistory += "<p style='font-family:arial;color:"+"#00ff00"+">"+model.getName()+": "+s+"</p>" ;
 		cv.updateDisplay(chatHistory);
+		System.out.println("hej");
 	}
 	
 	
 	private void receive(String message){
 		 System.out.println("echo: " + message);
 		    //chatHistory += message + "\n";
-		    
+		    String name="";
+		    String color="";
+		    String msg="";
 		    
 			   if (message.contains("sender="))  {
 				   int k;
 				   k = message.indexOf("sender=");
 				   k = k+8;
 				   
-				  String name = message.substring(k);
+				  name = message.substring(k);
 				  int l = name.indexOf('"');
 				    name = name.substring(0, l);
 				   System.out.println(name);
@@ -92,7 +95,7 @@ public class Conversation extends Observable implements Runnable  {
 					int k;
 					k = message.indexOf("color=");
 					k = k+7;
-					String color = message.substring(k);
+					color = message.substring(k);
 					int l = color.indexOf('>');
 					color = color.substring(0, l);
 					System.out.println(color);
@@ -102,12 +105,14 @@ public class Conversation extends Observable implements Runnable  {
 					int k;
 					k = message.indexOf("color=");
 					k = k+14;
-					String msg = message.substring(k);
+					msg = message.substring(k);
 					int l = msg.indexOf("</");
 					msg = msg.substring(0, l);
 					System.out.println(msg);
-				chatHistory += msg +"\n";
 				}
+				chatHistory += "<p style='font-family:arial;color:"+color
+						+";font-size:10px;'>"+name+": "+msg+"</p>";
+				
 			   cv.updateDisplay(chatHistory);   
 	}
 	
