@@ -68,7 +68,7 @@ public class Model extends Observable implements Observer{
 	 * name of conversation, might change
 	 */
 	public void removeConversation(String name) {
-		//TODO close and remove the conversation
+		
 	}
 	
 	/**

@@ -3,6 +3,8 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -44,8 +46,9 @@ public class MainView extends Observable implements  Observer, ActionListener {
 		container = new JPanel();
 		container.setLayout(new BorderLayout());
 		
-		conversationList = new JPanel();
-		conversationList.setLayout(new BoxLayout(conversationList, BoxLayout.PAGE_AXIS));
+		conversationList = new JPanel(new GridBagLayout());
+		
+		//conversationList.setLayout(new BoxLayout(conversationList, BoxLayout.PAGE_AXIS));
 		/*
 		for(int i=0;i< 30;i++) {
 			JButton conversation = new JButton("Conversation "+(i+1));
@@ -72,7 +75,10 @@ public class MainView extends Observable implements  Observer, ActionListener {
 		buttonContainer.add(newConversationButton);
 		buttonContainer.add(settingsButton);
 		
-		container.add(scroll, BorderLayout.CENTER);
+		JPanel temp = new JPanel();
+		temp.add(scroll);
+		container.add(temp,BorderLayout.CENTER);
+		//container.add(scroll, BorderLayout.CENTER);
 		container.add(buttonContainer, BorderLayout.SOUTH);
 		
 		
@@ -89,7 +95,7 @@ public class MainView extends Observable implements  Observer, ActionListener {
 		System.out.println("Something changed in model");
 		System.out.println("Udpading buttons");
 		System.out.println("Conversations.size: " + model.getConversations().size());
-		 
+		 int i=0;
 		for(Conversation c: model.getConversations()) {
 			JPanel temp = new JPanel();
 			temp.setLayout(new BorderLayout());
@@ -104,14 +110,19 @@ public class MainView extends Observable implements  Observer, ActionListener {
 			if (b){
 				c.conversationButton.addActionListener(this);
 			}
-			
+			c.conversationButton.setPreferredSize(new Dimension(190,50));
 			temp.add(c.conversationButton,BorderLayout.CENTER);
-			conversationList.add(temp); 
+			//conversationList.add(temp); 
 
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.gridx=0;
+			gbc.gridy=i;
 			
-			
-			
+			conversationList.add(temp,gbc);
+			i++;
 		}
+		scroll.validate();
+		
 		frame.revalidate();
 		frame.repaint();
 	}

@@ -14,6 +14,7 @@ import java.net.UnknownHostException;
 
 import javax.swing.JButton;
 
+import view.ConversationButton;
 import view.ConversationView;
 
 
@@ -27,7 +28,7 @@ public class Conversation extends Observable implements Runnable  {
     Model model;
     Scanner scanner;
     StringBuffer sb1;
-    public JButton conversationButton;
+    public ConversationButton conversationButton;
 
 	
 	/**
@@ -51,7 +52,7 @@ public class Conversation extends Observable implements Runnable  {
 		this.model = model;
 		connections = new ArrayList<Socket>(); 
 		connections.add(socketIn);
-		conversationButton = new JButton(name);
+		conversationButton = new ConversationButton(model,name);
 		conversationButton.setBackground(Color.WHITE);
 		conversationButton.setBorderPainted(true);
 	
