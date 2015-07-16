@@ -96,6 +96,7 @@ public class MainView extends Observable implements  Observer, ActionListener {
 		System.out.println("Udpading buttons");
 		System.out.println("Conversations.size: " + model.getConversations().size());
 		 int i=0;
+		 conversationList.removeAll();
 		for(Conversation c: model.getConversations()) {
 			JPanel temp = new JPanel();
 			temp.setLayout(new BorderLayout());

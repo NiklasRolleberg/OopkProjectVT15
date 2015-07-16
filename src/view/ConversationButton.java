@@ -14,9 +14,11 @@ import model.Server;
 public class ConversationButton extends JButton implements ActionListener  {
 
 	
+	
 	JButton removeButton;
 	JPanel endPanel;
 	Model model;
+	String name;
 	
 	
 	
@@ -29,7 +31,8 @@ public class ConversationButton extends JButton implements ActionListener  {
 		removeButton.addActionListener(this);
 		removeButton.setSize(1, 1);
 		endPanel = new JPanel();
-		
+		this.name = name;
+	
 		//endPanel.setSize(20, 20);
 		endPanel.setLayout(new BorderLayout());
 		endPanel.add(removeButton,BorderLayout.EAST);
@@ -48,7 +51,9 @@ public class ConversationButton extends JButton implements ActionListener  {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		System.out.println("jaha");
+		System.out.println("actionPreformed");
+		model.removeConversation(name);
+		
 	
 	}
 	

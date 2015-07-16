@@ -172,8 +172,8 @@ public class ConversationView implements ActionListener {
 
 	}
 
-	public void setVisible(){
-		this.myFrame.setVisible(true);
+	public void setVisible(boolean b){
+		this.myFrame.setVisible(b);
 	}
 
 

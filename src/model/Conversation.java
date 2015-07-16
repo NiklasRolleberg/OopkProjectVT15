@@ -29,6 +29,7 @@ public class Conversation extends Observable implements Runnable  {
     Scanner scanner;
     StringBuffer sb1;
     public ConversationButton conversationButton;
+    String name;
 
 	
 	/**
@@ -50,6 +51,7 @@ public class Conversation extends Observable implements Runnable  {
 	 */
 	Conversation(Model model, Socket socketIn,String name){
 		this.model = model;
+		this.name = name;
 		connections = new ArrayList<Socket>(); 
 		connections.add(socketIn);
 		conversationButton = new ConversationButton(model,name);
@@ -72,6 +74,26 @@ public class Conversation extends Observable implements Runnable  {
 		System.out.println(model.getColor());
 		cv.updateDisplay(chatHistory);
 		System.out.println("hej");
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public void disConnect(){
+		cv.setVisible(false);
+		out.print("<message> <disconnect/></message>");
+		out.flush();
+		for(int i=0; i<connections.size(); i++){
+			try {
+				connections.get(i).close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+			
 	}
 	
 	
@@ -163,7 +185,7 @@ public class Conversation extends Observable implements Runnable  {
 		}
 	} catch (Exception e1) {
 
-		e1.printStackTrace();
+		//e1.printStackTrace();
 	}
 
 

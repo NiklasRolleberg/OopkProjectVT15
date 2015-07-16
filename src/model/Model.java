@@ -68,6 +68,22 @@ public class Model extends Observable implements Observer{
 	 * name of conversation, might change
 	 */
 	public void removeConversation(String name) {
+		System.out.println("conversations.size"+conversations.size());
+		 for (int i = 0; i<conversations.size(); i++ ){
+			 System.out.println("conversations.get(i).getName(): " + conversations.get(i).getName()+ "\nName: " + name);
+			 if (conversations.get(i).getName().equals(name)){
+				 conversations.get(i).disConnect();
+				 conversations.remove(i);
+				 System.out.println("removed");
+				 setChanged();
+				 notifyObservers();
+				 break;
+				 
+			 }
+		
+		 }
+		 	
+		 	
 		
 	}
 	

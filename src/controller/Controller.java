@@ -104,7 +104,7 @@ public class Controller implements Observer, ActionListener{
 
 			if (arg1 instanceof Conversation){
 				Conversation c = (Conversation)arg1;
-				c.cv.setVisible();
+				c.cv.setVisible(true);
 			}
 		}
 	}
