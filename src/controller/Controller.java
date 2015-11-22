@@ -16,7 +16,7 @@ import model.Server;
 
 public class Controller implements Observer, ActionListener{
 	
-	Model model;
+	public Model model;
 	Server server;
 	MainView mainView;
 	

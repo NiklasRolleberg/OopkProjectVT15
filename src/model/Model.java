@@ -11,8 +11,8 @@ import java.util.Observer;
 public class Model extends Observable implements Observer{
 	
 	ArrayList<Conversation> conversations;
-	String myName = "Marcus";
-	String myColor = "#ff0000";
+	public String myName = "Marcus";
+	public String myColor = "#ff0000";
 	int number = 1;
 	
 	

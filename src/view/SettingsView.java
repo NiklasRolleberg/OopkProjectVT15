@@ -34,14 +34,16 @@ public class SettingsView implements ActionListener  {
 		container = new JPanel();
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 		
-		nameField = new JTextField("nameField");
-		colorField = new JTextField("ColorField");
-		portField = new JTextField("PortField");
-		colorField.setBackground(Color.GREEN);
+		nameField = new JTextField(controller.model.myName);
+		colorField = new JTextField(controller.model.myColor);
+		portField = new JTextField("");
+		//colorField.setBackground(Color.GREEN);
 		serverButton = new JButton("Start Server");
 		okButton = new JButton("OK");
+		okButton.addActionListener(this);
 		serverButton.addActionListener(this);
 		serverButton.setEnabled(!serverOn);
+		portField.setEditable(!serverOn);
 		
 		container.add(new JLabel("name"));
 		container.add(nameField);
@@ -67,10 +69,18 @@ public class SettingsView implements ActionListener  {
 	public void actionPerformed(ActionEvent arg0) {
 		
 		if (arg0.getActionCommand() == "Start Server")
-			
+		{
 			serverButton.setEnabled(false);
-		int i = Integer.parseInt(portField.getText());
-		controller.startServer(i);
+			int i = Integer.parseInt(portField.getText());
+			controller.startServer(i);
+			portField.setEditable(false);
+		}
+		else if (arg0.getActionCommand() == "OK")
+		{
+			controller.model.myColor = colorField.getText();
+			controller.model.myName = nameField.getText();
+			frame.setVisible(false);
+		}
 		
 	}
 }
