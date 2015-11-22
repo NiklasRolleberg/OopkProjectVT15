@@ -36,6 +36,7 @@ public class ConversationButton extends JButton implements ActionListener  {
 		//endPanel.setSize(20, 20);
 		endPanel.setLayout(new BorderLayout());
 		endPanel.add(removeButton,BorderLayout.EAST);
+		endPanel.add(new JLabel(name),BorderLayout.CENTER);
 		this.add(endPanel);
 		
 		
