@@ -14,6 +14,7 @@ public class Connection implements Runnable{
 	PrintWriter out = null;
     BufferedReader in = null;
     Thread myThread;
+    String name;
     
     public Connection(Conversation c, Socket s){
     	conversation = c;
@@ -26,6 +27,14 @@ public class Connection implements Runnable{
     {
     	out.print(message);
     	out.flush();
+    }
+    
+    public void setName(String name){
+    	this.name = name;
+    }
+    
+    public String getName(){
+    	return name;
     }
     
     public void close()
@@ -72,7 +81,7 @@ public class Connection implements Runnable{
 		try {
 			while ((inStr = scanner.next()) != null) {
 			    //out.println(userInput);
-			    conversation.receive(inStr);
+			    conversation.receive(inStr,this);
 			}
 		} catch (Exception e1) {
 

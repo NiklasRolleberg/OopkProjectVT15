@@ -21,7 +21,7 @@ import view.ConversationView;
 public class Conversation extends Observable  {
 
 	//ArrayList<Socket> connections;
-	ArrayList<Connection> connections;
+	public ArrayList<Connection> connections;
 	public ConversationView cv;
 	//PrintWriter out = null;
     //BufferedReader in = null;
@@ -94,12 +94,46 @@ public class Conversation extends Observable  {
 	}
 	
 	
-	void receive(String message){
+	public void addConnection(String ip, int port ){
+		Socket s;
+		try {
+			s = new Socket(ip,port);
+			connections.add(new Connection( this,s));
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void removeConnection(Connection c){
+		connections.remove(c);
+		c.close();
+	}
+	
+	
+	
+	void receive(String message,Connection receiver){
 		 System.out.println("echo: " + message);
 		    //chatHistory += message + "\n";
+		 	for (Connection c:connections){
+		 		if (c != receiver){
+		 			c.send(message + "</message>");
+		 		}
+		 	}
 		    String name="";
 		    String color="";
 		    String msg="";
+		    
+		    	if (message.contains("<disconnect/>")){
+		    		
+		    		chatHistory += "<p style='font-family:arial;color:#ff0000;font-size:20px;'>blö</p>";
+					cv.updateDisplay(chatHistory); 
+					return;
+		    		
+		    	}
 		    
 			   if (message.contains("sender="))  {
 				   int k;
@@ -108,8 +142,9 @@ public class Conversation extends Observable  {
 				   
 				  name = message.substring(k);
 				  int l = name.indexOf('"');
-				    name = name.substring(0, l);
-				   System.out.println(name);
+				  name = name.substring(0, l);
+				  System.out.println(name);
+				  receiver.setName(name);;
 			   }
 				if (message.contains("color=")){
 					int k;
