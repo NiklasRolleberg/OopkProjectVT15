@@ -30,8 +30,8 @@ public class Model extends Observable implements Observer{
 	 */
 	public void AddConversation(Socket s, String conName) {
 		Conversation c = new Conversation(this, s,"chatt"+ (number ++));
-		Thread t = new Thread(c);
-		t.start();
+		//Thread t = new Thread(c);
+		//t.start();
 		conversations.add(c);
 		setChanged();
 		notifyObservers();
@@ -48,8 +48,8 @@ public class Model extends Observable implements Observer{
 	public void AddConversation(String ip, int port, String name) {
 		try {
 			Conversation c = new Conversation(this, ip, port,"chatt"+ (number ++));
-			Thread t = new Thread(c);
-			t.start();
+			//Thread t = new Thread(c);
+			//t.start();
 			conversations.add(c);
 			setChanged();
 			notifyObservers();
