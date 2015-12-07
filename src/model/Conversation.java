@@ -69,6 +69,26 @@ public class Conversation extends Observable  {
 	
 	public void sendMessage(String s){
 		System.out.println("sending message");
+		StringBuilder t = new StringBuilder(s);
+		for (int i=0; i<t.length(); i++){
+			if (t.charAt(i) == '<'){
+				t.deleteCharAt(i);
+				t.insert(i, "&lt;");
+				
+	
+			if (t.charAt(i) == '>'){
+				t.deleteCharAt(i);
+				t.insert(i, "&gt;");
+				
+			System.out.println(t);	
+		}
+		s = t.toString();
+		}
+		}	
+			
+			
+		
+		
 		//out.print("<message sender=" + '"' + model.getName() + '"' + "> <text color="+ model.getColor() +"> "+s+"</text> </message>");
 		//out.flush();
 		for(Connection c:connections)
