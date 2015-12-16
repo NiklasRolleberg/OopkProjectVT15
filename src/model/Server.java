@@ -38,6 +38,7 @@ public class Server implements Runnable  {
 			try {
 			    clientSocket = serverSocket.accept();
 			    
+			    
 			    int dialogButton = 0;
 				int dialogResult = JOptionPane.showConfirmDialog (null, "Would You Like to connect?","Message",dialogButton);
 			    if(dialogResult == JOptionPane.YES_OPTION){
