@@ -23,6 +23,16 @@ public class Model extends Observable implements Observer{
 		conversations = new ArrayList<Conversation>();
 	}
 	
+	
+	/**Close all connections 
+	 */
+	public void exit() {
+		Conversation c = null;
+		while((c = getConversation()) != null) {
+			this.removeConversation(c.getName());
+		}
+	}
+	
 	/** create new conversation from a connected socket
 	 * @param s
 	 * connected socket
@@ -60,6 +70,8 @@ public class Model extends Observable implements Observer{
 	}
 	
 	public Conversation getConversation(){
+		if(conversations.isEmpty())
+			return null;
 		return conversations.get(conversations.size()-1);
 	}
 	

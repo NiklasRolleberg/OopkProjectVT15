@@ -2,6 +2,8 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.net.Socket;
 import java.util.Observable;
 import java.util.Observer;
@@ -14,7 +16,7 @@ import model.Conversation;
 import model.Model;
 import model.Server;
 
-public class Controller implements Observer, ActionListener{
+public class Controller implements Observer, ActionListener, WindowListener{
 	
 	public Model model;
 	Server server;
@@ -97,6 +99,11 @@ public class Controller implements Observer, ActionListener{
 		
 	}
 	
+	public void exit() {
+		model.exit();
+		System.exit(0);
+	}
+	
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
@@ -112,13 +119,40 @@ public class Controller implements Observer, ActionListener{
 
 	
 	public static void main(String[] args) {
-		String message  = "<message sender="+ '"' + "Niklas" + '"' + "><text color=" + '"' + "#RRGGBB" + '"' + "> hejsan </text>";
-		
+		//String message  = "<message sender="+ '"' + "Niklas" + '"' + "><text color=" + '"' + "#RRGGBB" + '"' + "> hejsan </text>";
 
-
-		
-		
 		System.out.println("JAG LEVER idag!");
 		Controller c = new Controller();
 	}
+
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {}
+
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {}
+
+
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		System.out.println("CLOSING!");
+		this.exit();	
+	}
+
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {}
+
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {}
+
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {}
+
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {}
 }

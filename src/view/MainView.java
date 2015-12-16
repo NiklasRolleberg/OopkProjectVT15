@@ -43,6 +43,8 @@ public class MainView extends Observable implements  Observer, ActionListener {
 		frame.setPreferredSize(new Dimension(220,500));
 		frame.setResizable(true);
 		
+		frame.addWindowListener(controller);
+		
 		container = new JPanel();
 		container.setLayout(new BorderLayout());
 		
