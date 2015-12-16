@@ -133,6 +133,13 @@ public class Conversation extends Observable  {
 		c.close();
 	}
 	
+	public void sendRawMessage(String message){
+		for (Connection c:connections){
+	 			c.send(message);
+		}
+	 		
+	}
+	
 	
 	
 	void receive(String message,Connection receiver){

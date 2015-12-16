@@ -28,7 +28,7 @@ public class Model extends Observable implements Observer{
 	 * connected socket
 	 * @param conName 
 	 */
-	public void AddConversation(Socket s, String conName) {
+	public void AddConversation(Socket s, String request) {
 		Conversation c = new Conversation(this, s,"chatt"+ (number ++));
 		//Thread t = new Thread(c);
 		//t.start();

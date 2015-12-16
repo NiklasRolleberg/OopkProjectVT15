@@ -66,9 +66,10 @@ public class Controller implements Observer, ActionListener{
 	 * @param port
 	 * port
 	 */
-	public void addConverstion(String conName,String ip,int port){
-		model.AddConversation(ip, port, conName);
+	public void addConverstion(String request,String ip,int port){
+		model.AddConversation(ip, port, "");
 		Conversation c = model.getConversation();
+		c.sendRawMessage("<request> reply = No </request>");
 		ConversationView cv = new ConversationView();
 		c.setView(cv);
 		cv.setConversation(c);

@@ -31,7 +31,7 @@ public class AddConversationView  implements ActionListener {
 		this.controller = controller;
 		frame = new JFrame();
 		container = new JPanel();
-		requestField = new JTextField("My name");
+		requestField = new JTextField("Vill du prata med mig?");
 		ipField = new JTextField("192.168.1.100");
 		portField = new JTextField("4444");
 		
@@ -41,7 +41,7 @@ public class AddConversationView  implements ActionListener {
 		
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 				
-		JTextArea name = new JTextArea("Name");
+		JTextArea name = new JTextArea("Request");
 		name.setEditable(false);
 		name.setBackground(Color.GRAY.brighter());
 		container.add(name);

@@ -74,7 +74,7 @@ public class Connection implements Runnable{
 		
 
 		System.out.println("Connection successful!");
-
+		
 		
 		stdIn = new BufferedReader(new InputStreamReader(System.in));
         String inStr;                           
