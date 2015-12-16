@@ -145,67 +145,68 @@ public class Conversation extends Observable  {
 	void receive(String message,Connection receiver){
 		 System.out.println("echo: " + message);
 		    //chatHistory += message + "\n";
-		 	for (Connection c:connections){
-		 		if (c != receiver){
-		 			c.send(message + "</message>");
-		 		}
+		 	if(!message.contains("<request>")) {
+			 	for (Connection c:connections){
+			 		if (c != receiver){
+			 			c.send(message + "</message>");
+			 		}
+			 	}
 		 	}
+		 	
 		    String name="";
 		    String color="";
 		    String msg="";
 		    
-		    	if (message.contains("<disconnect/>")){
-		    		
-		    		chatHistory += "<p style='font-family:arial;color:#ff0000;font-size:20px;'>blö</p>";
-					cv.updateDisplay(chatHistory); 
-					return;
-		    		
-		    	}
-		    	
-		    	if (message.contains("<request>")) {
-		    		int s = message.indexOf("<request>");
-		    		s+=9;
-		    		chatHistory += "<p style='font-family:arial;color:#ff0000;font-size:20px;'>"+message.substring(s)+"</p>";
-					cv.updateDisplay(chatHistory); 
-					return;
-		    	}
-		    
-			   if (message.contains("sender="))  {
-				   int k;
-				   k = message.indexOf("sender=");
-				   k = k+8;
-				   
-				  name = message.substring(k);
-				  int l = name.indexOf('"');
-				  name = name.substring(0, l);
-				  System.out.println(name);
-				  receiver.setName(name);;
-			   }
-				if (message.contains("color=")){
-					int k;
-					k = message.indexOf("color=");
-					k = k+7;
-					color = message.substring(k);
-					int l = color.indexOf('>');
-					color = color.substring(0, l);
-					System.out.println(color);
-				
-				}
-				if (message.contains("color=")){
-					int k;
-					k = message.indexOf("color=");
-					k = k+14;
-					msg = message.substring(k);
-					int l = msg.indexOf("</");
-					msg = msg.substring(0, l);
-					System.out.println(msg);
-				}
-				/*chatHistory += "<p style='font-family:arial;color:"+color
-						+";font-size:10px;'>"+name+": "+msg+"</p>";*/
-				
-				chatHistory += "<p style='font-family:arial;color:" + color + ";font-size:10px;'>"+ name +": "+ msg +"</p>";
-				
-				
-			   cv.updateDisplay(chatHistory);   
+	    	if (message.contains("<disconnect/>")){
+	    		
+	    		chatHistory += "<p style='font-family:arial;color:#ff0000;font-size:20px;'>blö</p>";
+				cv.updateDisplay(chatHistory); 
+				return;
+	    		
+	    	}
+	    	
+	    	if (message.contains("<request>")) {
+	    		int s = message.indexOf("<request>");
+	    		s+=9;
+	    		chatHistory += "<p style='font-family:arial;color:#ff0000;font-size:20px;'>"+message.substring(s)+"</p>";
+				cv.updateDisplay(chatHistory); 
+				return;
+	    	}
+	    
+		   if (message.contains("sender="))  {
+			   int k;
+			   k = message.indexOf("sender=");
+			   k = k+8;
+			   
+			  name = message.substring(k);
+			  int l = name.indexOf('"');
+			  name = name.substring(0, l);
+			  System.out.println(name);
+			  receiver.setName(name);;
+		   }
+			if (message.contains("color=")){
+				int k;
+				k = message.indexOf("color=");
+				k = k+7;
+				color = message.substring(k);
+				int l = color.indexOf('>');
+				color = color.substring(0, l);
+				System.out.println(color);
+			
+			}
+			if (message.contains("color=")){
+				int k;
+				k = message.indexOf("color=");
+				k = k+14;
+				msg = message.substring(k);
+				int l = msg.indexOf("</");
+				msg = msg.substring(0, l);
+				System.out.println(msg);
+			}
+			/*chatHistory += "<p style='font-family:arial;color:"+color
+					+";font-size:10px;'>"+name+": "+msg+"</p>";*/
+			
+			chatHistory += "<p style='font-family:arial;color:" + color + ";font-size:10px;'>"+ name +": "+ msg +"</p>";	
+			cv.updateDisplay(chatHistory);   
 	}
 }

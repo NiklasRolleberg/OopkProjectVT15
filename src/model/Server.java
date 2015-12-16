@@ -49,30 +49,31 @@ public class Server implements Runnable  {
 					e.printStackTrace();
 				}
 			    
+			    String request = "Oder version or broken request-tag wants to talk to you";
+			    
 			    byte[] buffer = new byte[128];
-			    int l = clientSocket.getInputStream().read(buffer);
-			    String request = new String(buffer);
-			    request = request.substring(0,l);
-			    System.out.println("Request: " + request);
-			    
-			    int start = request.indexOf("<request>");
-			    int stop = request.indexOf("</request>");
-			    
-			    if(start == -1 || stop == -1 || start+9>stop) {
-			    	request = "Oder version or broken request-tag wants to talk to you";
+			    if(clientSocket.getInputStream().available()>0) {
+			    	int l = clientSocket.getInputStream().read(buffer);
+			    	request = new String(buffer);
+			    	request = request.substring(0,l);
+			    	//System.out.println("Request: " + request);
+			    	int start = request.indexOf("<request>");
+				    int stop = request.indexOf("</request>");
+				    
+				    if(start == -1 || stop == -1 || start+9>stop) {
+				    	request = "Oder version or broken request-tag wants to talk to you";
+				    }
+				    else {
+				    	start +=9;
+				    	request = request.substring(start,stop);
+				    }
 			    }
-			    else {
-			    	System.out.println("Start " + start);
-			    	System.out.println("Stop  " + stop);
-			    	start +=9;
-			    	request = request.substring(start,stop-start);
-			    }
+			   
 			    
 			    int dialogButton = 0;
 				int dialogResult = JOptionPane.showConfirmDialog (null, request,"Would You Like to connect?",dialogButton);
 			    if(dialogResult == JOptionPane.YES_OPTION){
 			    	controller.addConverstion("hej", clientSocket);	
-
 			    }
 			    else{
 			    	byte[] sendBuffer = new String("<request> NEEJ JAG VILL INTE PRATA MED DIG! </request>").getBytes("UTF-8");
