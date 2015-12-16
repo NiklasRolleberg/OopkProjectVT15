@@ -1,6 +1,7 @@
 package model;
 
 import java.io.IOException;
+import javax.swing.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -36,8 +37,30 @@ public class Server implements Runnable  {
 			// Lyssna efter en klient
 			try {
 			    clientSocket = serverSocket.accept();
-			    controller.addConverstion("hej", clientSocket);
 			    
+			    int dialogButton = 0;
+				int dialogResult = JOptionPane.showConfirmDialog (null, "Would You Like to connect?","Message",dialogButton);
+			    if(dialogResult == JOptionPane.YES_OPTION){
+			    	controller.addConverstion("hej", clientSocket);	
+
+			    }
+			    if(dialogResult == JOptionPane.YES_OPTION){
+			    	clientSocket.close();	
+
+			    }
+			    
+			    	
+			    
+
+			    	
+			    
+			    /** TODO
+			     * Fixa så att en ruta kommer fram meden fråga om man vill ansluta
+			     *
+			    */
+		
+			    
+			       
 			} catch (IOException e) {
 			    System.out.println("Accept failed: 4444");
 			    System.exit(-1);
