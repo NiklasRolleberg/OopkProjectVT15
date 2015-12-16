@@ -25,6 +25,7 @@ public class Connection implements Runnable{
     
     public void send(String message)
     {
+    	System.out.println("Sending message: " + message);
     	out.print(message);
     	out.flush();
     }
@@ -59,7 +60,7 @@ public class Connection implements Runnable{
         	out = new PrintWriter(socket.getOutputStream(), true);
         	in = new BufferedReader(new InputStreamReader(
                                     socket.getInputStream()));
-        scanner = new Scanner(in).useDelimiter("</message>");
+        	scanner = new Scanner(in).useDelimiter("</message>");
             
 	            
         } catch (UnknownHostException e) {
@@ -92,7 +93,6 @@ public class Connection implements Runnable{
 		out.close();
 		try {
 			in.close();
-			//stdIn.close();
 			socket.close();
 		} catch (IOException e) {
 
