@@ -71,13 +71,13 @@ public class Controller implements Observer, ActionListener, WindowListener{
 	public void addConverstion(String request,String ip,int port){
 		model.AddConversation(ip, port, "");
 		Conversation c = model.getConversation();
-		c.sendRawMessage("<request> reply = No </request>");
+		c.sendRawMessage("<request>" + request + "</request>");
 		ConversationView cv = new ConversationView();
 		c.setView(cv);
 		cv.setConversation(c);
 	}
 	
-	/**
+	/**'
 	 * add new conversation
 	 * @param conName
 	 * conversation name
