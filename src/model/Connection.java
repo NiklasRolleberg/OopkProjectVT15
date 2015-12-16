@@ -60,7 +60,8 @@ public class Connection implements Runnable{
         	out = new PrintWriter(socket.getOutputStream(), true);
         	in = new BufferedReader(new InputStreamReader(
                                     socket.getInputStream()));
-        	scanner = new Scanner(in).useDelimiter("</message>");
+        	//scanner = new Scanner(in).useDelimiter("</message>");
+        	scanner = new Scanner(in).useDelimiter("</message>|</request>");
             
 	            
         } catch (UnknownHostException e) {

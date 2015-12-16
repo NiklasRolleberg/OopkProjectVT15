@@ -161,6 +161,14 @@ public class Conversation extends Observable  {
 					return;
 		    		
 		    	}
+		    	
+		    	if (message.contains("<request>")) {
+		    		int s = message.indexOf("<request>");
+		    		s+=9;
+		    		chatHistory += "<p style='font-family:arial;color:#ff0000;font-size:20px;'>"+message.substring(s)+"</p>";
+					cv.updateDisplay(chatHistory); 
+					return;
+		    	}
 		    
 			   if (message.contains("sender="))  {
 				   int k;
