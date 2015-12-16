@@ -20,7 +20,7 @@ public class AddConversationView  implements ActionListener {
 	JFrame frame;
 	JPanel container;
 	JButton okButton;
-	JTextField nameField;
+	JTextField requestField;
 	JTextField ipField;
 	JTextField portField;
 	Controller controller;
@@ -31,7 +31,7 @@ public class AddConversationView  implements ActionListener {
 		this.controller = controller;
 		frame = new JFrame();
 		container = new JPanel();
-		nameField = new JTextField("My name");
+		requestField = new JTextField("My name");
 		ipField = new JTextField("192.168.1.100");
 		portField = new JTextField("4444");
 		
@@ -45,7 +45,7 @@ public class AddConversationView  implements ActionListener {
 		name.setEditable(false);
 		name.setBackground(Color.GRAY.brighter());
 		container.add(name);
-		container.add(nameField);
+		container.add(requestField);
 		
 		JTextArea ip = new JTextArea("ip");
 		ip.setEditable(false);
@@ -75,11 +75,11 @@ public class AddConversationView  implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String myName = nameField.getText();
+		String request = requestField.getText();
 		String myIp = ipField.getText();
 		int myPort = Integer.parseInt( portField.getText());
 		frame.setVisible(false);
-		controller.addConverstion(myName, myIp, myPort);
+		controller.addConverstion(request, myIp, myPort);
 		
 		
 	}
