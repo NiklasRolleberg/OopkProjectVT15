@@ -18,13 +18,10 @@ import view.ConversationButton;
 import view.ConversationView;
 
 
-public class Conversation extends Observable  {
+public class Conversation extends Observable {
 
-	//ArrayList<Socket> connections;
 	public ArrayList<Connection> connections;
 	public ConversationView cv;
-	//PrintWriter out = null;
-    //BufferedReader in = null;
     String chatHistory="<html><head><title></title></head><body bgcolor= '#FFFFFFF'> ";
     Model model;
     Scanner scanner;
@@ -50,47 +47,47 @@ public class Conversation extends Observable  {
 	 * create conversation from connected socket
 	 * @param socketIn connected socket
 	 */
-	Conversation(Model model, Socket socketIn,String name){
+	Conversation(Model model, Socket socketIn,String name) {
 		this.model = model;
 		this.name = name;
 		connections = new ArrayList<Connection>(); 
 		connections.add(new Connection(this, socketIn));
 		conversationButton = new ConversationButton(model,name);
 		conversationButton.setBackground(Color.WHITE);
-		conversationButton.setBorderPainted(true);
-	
-
-		
+		conversationButton.setBorderPainted(true);	
 	}
 	
-	public void setView(ConversationView v){
+	/**
+	 * Set the view object to show the messages
+	 * @param v
+	 * View object
+	 */
+	public void setView(ConversationView v) {
 		cv=v;
 	}
 	
-	public void sendMessage(String s){
-		System.out.println("sending message");
+	/**
+	 * Send a message to all connections
+	 * @param s
+	 * message to be sent
+	 */
+	public void sendMessage(String s) {
+		//System.out.println("sending message");
 		StringBuilder t = new StringBuilder(s);
-		for (int i=0; i<t.length(); i++){
-			if (t.charAt(i) == '<'){
+		for (int i=0; i<t.length(); i++) 
+		{
+			if (t.charAt(i) == '<') {
 				t.deleteCharAt(i);
 				t.insert(i, "&lt;");
-				
-	
+			}
 			if (t.charAt(i) == '>'){
 				t.deleteCharAt(i);
-				t.insert(i, "&gt;");
-				
-			System.out.println(t);	
-		}
-		s = t.toString();
-		}
+				t.insert(i, "&gt;");	
+			}
+			s = t.toString();
 		}	
 			
-			
-		
-		
-		//out.print("<message sender=" + '"' + model.getName() + '"' + "> <text color="+ model.getColor() +"> "+s+"</text> </message>");
-		//out.flush();
+
 		for(Connection c:connections)
 			c.send("<message sender=" + '"' + model.getName() + '"' + "> <text color="+ model.getColor() +"> "+s+"</text> </message>");
 		
@@ -100,20 +97,34 @@ public class Conversation extends Observable  {
 		System.out.println("hej");
 	}
 	
-	public String getName(){
+	/**
+	 * Get name of conversation
+	 * @return
+	 * name of converation
+	 */
+	public String getName() {
 		return name;
 	}
 	
-	public void disConnect(){
+	/**
+	 * Close conversation and disconnect
+	 */
+	public void disConnect() {
 		cv.setVisible(false);
-		//out.print("<message> <disconnect/></message>");
-		//out.flush();
 		for(int i=0; i<connections.size(); i++){
 			connections.get(i).close();
 		}	
 	}
 	
-	
+	/**
+	 * Add a new connection to the conversation 
+	 * @param request
+	 * Request to be sent
+	 * @param ip
+	 * IP-address
+	 * @param port
+	 * port
+	 */
 	public void addConnection(String request, String ip, int port ){
 		Socket s;
 		try {
@@ -122,93 +133,100 @@ public class Conversation extends Observable  {
 			connections.add(c);
 			c.send("<request>"+request+"</request>");
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Remove a connection from the conversation
+	 * @param c
+	 * connection to be removed
+	 */
 	public void removeConnection(Connection c){
 		connections.remove(c);
 		c.close();
 	}
 	
+	/**
+	 * Send a raw message to all connections, this method allows you to send '<' and '>'
+	 * @param message
+	 * String to be sent
+	 */
 	public void sendRawMessage(String message){
 		for (Connection c:connections){
 	 			c.send(message);
 		}
-	 		
 	}
 	
-	
-	
-	void receive(String message,Connection receiver){
+	/**
+	 * Decode a received message and distribute it among the connections
+	 * @param message
+	 * message received
+	 * @param receiver
+	 * connection that resceived the message
+	 */
+	void receive(String message,Connection receiver) {
 		 System.out.println("echo: " + message);
-		    //chatHistory += message + "\n";
-		 	if(!message.contains("<request>")) {
-			 	for (Connection c:connections){
-			 		if (c != receiver){
-			 			c.send(message + "</message>");
-			 		}
-			 	}
+	 	if(!message.contains("<request>")) {
+		 	for (Connection c:connections) {
+		 		if (c != receiver){
+		 			c.send(message + "</message>");
+		 		}
 		 	}
-		 	
-		    String name="";
-		    String color="";
-		    String msg="";
-		    
-	    	if (message.contains("<disconnect/>")){
-	    		
-	    		chatHistory += "<p style='font-family:arial;color:#ff0000;font-size:20px;'>blö</p>";
-				cv.updateDisplay(chatHistory); 
-				return;
-	    		
-	    	}
-	    	
-	    	if (message.contains("<request>")) {
-	    		int s = message.indexOf("<request>");
-	    		s+=9;
-	    		chatHistory += "<p style='font-family:arial;color:#ff0000;font-size:20px;'>"+message.substring(s)+"</p>";
-				cv.updateDisplay(chatHistory); 
-				return;
-	    	}
+	 	}
+	 	
+	    String name="";
+	    String color="";
+	    String msg="";
 	    
-		   if (message.contains("sender="))  {
-			   int k;
-			   k = message.indexOf("sender=");
-			   k = k+8;
-			   
-			  name = message.substring(k);
-			  int l = name.indexOf('"');
-			  name = name.substring(0, l);
-			  System.out.println(name);
-			  receiver.setName(name);;
-		   }
-			if (message.contains("color=")){
-				int k;
-				k = message.indexOf("color=");
-				k = k+7;
-				color = message.substring(k);
-				int l = color.indexOf('>');
-				color = color.substring(0, l);
-				System.out.println(color);
-			
-			}
-			if (message.contains("color=")){
-				int k;
-				k = message.indexOf("color=");
-				k = k+14;
-				msg = message.substring(k);
-				int l = msg.indexOf("</");
-				msg = msg.substring(0, l);
-				System.out.println(msg);
-			}
-			/*chatHistory += "<p style='font-family:arial;color:"+color
-					+";font-size:10px;'>"+name+": "+msg+"</p>";*/
-			
-			chatHistory += "<p style='font-family:arial;color:" + color + ";font-size:10px;'>"+ name +": "+ msg +"</p>";	
-			cv.updateDisplay(chatHistory);   
+    	if (message.contains("<disconnect/>")){
+    		chatHistory += "<p style='font-family:arial;color:#ff0000;font-size:20px;'>blö</p>";
+    		cv.updateDisplay(chatHistory); 
+			return;
+    	}
+    	
+    	if (message.contains("<request>")) {
+    		int s = message.indexOf("<request>");
+    		s+=9;
+    		chatHistory += "<p style='font-family:arial;color:#ff0000;font-size:20px;'>"+message.substring(s)+"</p>";
+			cv.updateDisplay(chatHistory); 
+			return;
+    	}
+    
+    	if (message.contains("sender="))  {
+    		int k;
+    		k = message.indexOf("sender=");
+    		k = k+8;
+		  
+    		name = message.substring(k);
+    		int l = name.indexOf('"');
+    		name = name.substring(0, l);
+    		System.out.println(name);
+    		receiver.setName(name);;
+		}
+		if (message.contains("color=")){
+			int k;
+			k = message.indexOf("color=");
+			k = k+7;
+			color = message.substring(k);
+			int l = color.indexOf('>');
+			color = color.substring(0, l);
+			System.out.println(color);
+		
+		}
+		if (message.contains("color=")){
+			int k;
+			k = message.indexOf("color=");
+			k = k+14;
+			msg = message.substring(k);
+			int l = msg.indexOf("</");
+			msg = msg.substring(0, l);
+			System.out.println(msg);
+		}
+		
+		chatHistory += "<p style='font-family:arial;color:" + color + ";font-size:10px;'>"+ name +": "+ msg +"</p>";	
+		cv.updateDisplay(chatHistory);   
 	}
 }

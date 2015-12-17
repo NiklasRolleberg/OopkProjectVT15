@@ -31,24 +31,34 @@ public class Connection implements Runnable{
     		try {
     			//Thread is not started yet.
 				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} catch (InterruptedException e) {e.printStackTrace();}
     	}
     	
     	out.print(message);
     	out.flush();
     }
     
+    /**
+     * set name receiver
+     * @param name
+     */
     public void setName(String name){
     	this.name = name;
     }
     
+    /**
+     * Get name receiver
+     * @return
+     * name of receiver
+     */
     public String getName(){
     	return name;
     }
     
+    
+    /**
+     * Close connections and send disconnect tag
+     */
     public void close()
     {
     	System.out.println("close");
@@ -64,14 +74,12 @@ public class Connection implements Runnable{
 	@Override
 	public void run() 
 	{
-		BufferedReader stdIn;
-
-		Scanner scanner = null;;
+		Scanner scanner = null;
         try {
         	out = new PrintWriter(socket.getOutputStream(), true);
         	in = new BufferedReader(new InputStreamReader(
                                     socket.getInputStream()));
-        	//scanner = new Scanner(in).useDelimiter("</message>");
+        	
         	scanner = new Scanner(in).useDelimiter("</message>|</request>");
             
 	            
@@ -84,33 +92,19 @@ public class Connection implements Runnable{
             System.exit(1);
         }
 		
-
 		System.out.println("Connection successful!");
 		
-		
-		stdIn = new BufferedReader(new InputStreamReader(System.in));
         String inStr;                           
-
 		try {
 			while ((inStr = scanner.next()) != null) {
-			    //out.println(userInput);
 			    conversation.receive(inStr,this);
 			}
-		} catch (Exception e1) {
-
-			//e1.printStackTrace();
-		}
-
+		} catch (Exception e1) {e1.printStackTrace();}
 
 		out.close();
 		try {
 			in.close();
 			socket.close();
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-		
-		
+		} catch (IOException e) {e.printStackTrace();}
 	}
 }
