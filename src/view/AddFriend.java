@@ -21,6 +21,10 @@ public class AddFriend implements ActionListener  {
 	JTextField t2;
 	JFrame myFrame2;
 	
+	/**
+	 * The add conversation window with textfield and labels and an ok button
+	 */
+	
 	public AddFriend(Conversation addConversation){
 		conversation = addConversation;
 		myFrame2 = new JFrame();
@@ -55,6 +59,11 @@ public class AddFriend implements ActionListener  {
 		myFrame2.setVisible(true);
 		
 	}
+	
+	/**
+	 * sending request to be added to the added person
+	 */
+	
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -62,6 +71,8 @@ public class AddFriend implements ActionListener  {
 			myFrame2.setVisible(false);
 			conversation.addConnection(t0.getText(), t1.getText(),Integer.parseInt(t2.getText()));
 		}
+		
+
 		
 	}
 
