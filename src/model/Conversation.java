@@ -89,7 +89,7 @@ public class Conversation extends Observable {
 			
 
 		for(Connection c:connections)
-			c.send("<message sender=" + '"' + model.getName() + '"' + "> <text color="+ model.getColor() +"> "+s+"</text> </message>");
+			c.send("<message sender=" + '"' + model.getName() + '"' + "> <text color="+'"'+ model.getColor()+'"'+"> "+s+"</text> </message>");
 		
 		chatHistory += "<p style='font-family:arial;color:" + model.getColor() + ";font-size:10px;'>"+ model.getName() +": "+ s+"</p>";
 		System.out.println(model.getColor());
@@ -208,18 +208,18 @@ public class Conversation extends Observable {
 		}
 		if (message.contains("color=")){
 			int k;
-			k = message.indexOf("color=");
+			k = message.indexOf("color=")+1;
 			k = k+7;
 			color = message.substring(k);
 			int l = color.indexOf('>');
-			color = color.substring(0, l);
+			color = color.substring(0, l-1);
 			System.out.println(color);
 		
 		}
 		if (message.contains("color=")){
 			int k;
 			k = message.indexOf("color=");
-			k = k+14;
+			k = k+16;
 			msg = message.substring(k);
 			int l = msg.indexOf("</");
 			msg = msg.substring(0, l);

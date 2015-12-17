@@ -68,7 +68,7 @@ public class Server implements Runnable  {
 			    	byte[] sendBuffer = new String("<request> NEEJ JAG VILL INTE PRATA MED DIG! </request>").getBytes("UTF-8");
 			    	clientSocket.getOutputStream().write(sendBuffer);
 			    	clientSocket.getOutputStream().flush();
-			    	clientSocket.close();	
+			    	clientSocket.close();
 			    }
 	
 			} catch (IOException e) {
