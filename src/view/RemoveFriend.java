@@ -22,6 +22,11 @@ public class RemoveFriend implements ActionListener {
 	ArrayList<JToggleButton> buttons;
 	JFrame myFrame3;
 	
+	/**
+	 * Let you remove a person from the conversation chat.
+	 * Has a own list window to chose which person to remove from chat
+	 * @param c
+	 */
 	public RemoveFriend(Conversation c){
 		this.c = c;
 		myFrame3 = new JFrame();
@@ -54,6 +59,10 @@ public class RemoveFriend implements ActionListener {
 		p1.add(b1);
 	}
 
+	/**
+	 * Open the list with all the connected persons to the conversation.
+	 * Has a select function and removes from list when clicking on remove.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getActionCommand() == "Remove"){

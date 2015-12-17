@@ -26,7 +26,9 @@ public class AddConversationView  implements ActionListener {
 	Controller controller;
 	
 	/**This window lets you add another conversation
+	 * 	Window with request, ip and port. it has textfield and labels 
 	 */
+	
 	public AddConversationView(Controller controller) {
 		this.controller = controller;
 		frame = new JFrame();
@@ -38,6 +40,7 @@ public class AddConversationView  implements ActionListener {
 		okButton = new JButton("OK");
 		okButton.addActionListener(this);
 		
+
 		
 		container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 				
@@ -70,9 +73,14 @@ public class AddConversationView  implements ActionListener {
 		frame.pack();
 		frame.setVisible(true);
 		
+
+		
 	
 	}
-
+	/**
+	 *  sending the request to controller when clicking the "ok" button
+	 */
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String request = requestField.getText();
@@ -80,6 +88,7 @@ public class AddConversationView  implements ActionListener {
 		int myPort = Integer.parseInt( portField.getText());
 		frame.setVisible(false);
 		controller.addConverstion(request, myIp, myPort);
+		
 		
 		
 	}

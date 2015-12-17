@@ -40,6 +40,11 @@ public class ConversationView implements ActionListener {
 	JScrollPane scrollPane;
 	Conversation messageConversation;
 	
+	/**
+	 * The chat window for the conversation 
+	 * It has a textfield, textchat window, scrollbar, a send button, an  add button and remove button
+	 */
+	
 	public ConversationView() {
 		myTextchat = new JEditorPane();
 		myTextchat.setContentType("text/html");
@@ -75,7 +80,7 @@ public class ConversationView implements ActionListener {
 		
 		
 		
-		// TODO Lägg till actionlistener knapp
+		
 		
 		myFrame.add(myPanel);
 		myPanel.add(myContainer);
@@ -92,8 +97,10 @@ public class ConversationView implements ActionListener {
 		myContainerbutton.add(myButtonremove,BorderLayout.SOUTH);
 		
 		
-		
-		
+
+		/**
+		 * print out what the other person write
+		 */
 	}
 
 	public void updateDisplay(String hist){
@@ -103,10 +110,17 @@ public class ConversationView implements ActionListener {
 		System.out.println(hist);
 	}
 	
+	/**
+	 * keep track on right conversation
+	 */
+	
 	public void setConversation(Conversation b){
 		messageConversation=b;
 	}
 
+	/**
+	 * sends the writen text to the chat window.
+	 */
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -118,7 +132,9 @@ public class ConversationView implements ActionListener {
 		myTextwrite.setText("");
 	}
 		
-		
+	/**
+	 * open the add window
+	 */
 		
 		
 	if (e.getActionCommand() == "Add"){
@@ -127,12 +143,18 @@ public class ConversationView implements ActionListener {
 		
 
 	}
+	
+	/**
+	 * open the remove window
+	 */
 	if (e.getActionCommand() == "Remove"){
 		
 		RemoveFriend f = new RemoveFriend(messageConversation);
 
 	}
-	
+	/**
+	 * hide the window on close
+	 */
 
 	}
 

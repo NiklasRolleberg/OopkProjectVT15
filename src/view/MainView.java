@@ -50,19 +50,6 @@ public class MainView extends Observable implements  Observer, ActionListener {
 		
 		conversationList = new JPanel(new GridBagLayout());
 		
-		//conversationList.setLayout(new BoxLayout(conversationList, BoxLayout.PAGE_AXIS));
-		/*
-		for(int i=0;i< 30;i++) {
-			JButton conversation = new JButton("Conversation "+(i+1));
-			conversation.setBackground(Color.WHITE);
-			conversation.setBorderPainted(true);
-			conversation.addActionListener(controller);
-			JPanel temp = new JPanel();
-			temp.setLayout(new BorderLayout());
-			temp.add(conversation,BorderLayout.CENTER);
-			conversationList.add(temp);
-		}*/
-		
 		
 		scroll = new JScrollPane(conversationList);		
 		
@@ -80,7 +67,6 @@ public class MainView extends Observable implements  Observer, ActionListener {
 		JPanel temp = new JPanel();
 		temp.add(scroll);
 		container.add(temp,BorderLayout.CENTER);
-		//container.add(scroll, BorderLayout.CENTER);
 		container.add(buttonContainer, BorderLayout.SOUTH);
 		
 		
@@ -92,6 +78,9 @@ public class MainView extends Observable implements  Observer, ActionListener {
 		
 	}
 
+/**
+ * updates and and remove the conversation from the list. 
+ */
 	@Override
 	public void update(Observable o, Object arg) {
 		System.out.println("Something changed in model");
@@ -130,6 +119,9 @@ public class MainView extends Observable implements  Observer, ActionListener {
 		frame.repaint();
 	}
 
+	/**
+	 *notify  if you click on the conversatins button
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub

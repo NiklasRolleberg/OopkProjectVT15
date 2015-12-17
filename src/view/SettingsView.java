@@ -25,7 +25,8 @@ public class SettingsView implements ActionListener  {
 	JButton serverButton;
 	JButton okButton;
 	
-	/** In this window you can change your name and color
+	/** In this window you can change your name, color and port if you want to start the server
+	 * 
 	 */
 	public SettingsView(Controller controller,boolean serverOn ) {
 		this.controller = controller;
@@ -37,7 +38,6 @@ public class SettingsView implements ActionListener  {
 		nameField = new JTextField(controller.model.myName);
 		colorField = new JTextField(controller.model.myColor);
 		portField = new JTextField("");
-		//colorField.setBackground(Color.GREEN);
 		serverButton = new JButton("Start Server");
 		okButton = new JButton("OK");
 		okButton.addActionListener(this);
@@ -65,6 +65,10 @@ public class SettingsView implements ActionListener  {
 		frame.pack();
 	}
 
+	/**
+	 * Start the server and lock the button when clicked.
+	 * Saves the name and color with the "ok" button and hides the setting window.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		

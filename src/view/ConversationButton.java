@@ -22,7 +22,9 @@ public class ConversationButton extends JButton implements ActionListener  {
 	
 	
 	
-	
+	/**
+	 * let you have conversationbuttons in the mainview
+	 */
 	
 	public ConversationButton(Model model, String name){
 		super(name);
@@ -42,13 +44,19 @@ public class ConversationButton extends JButton implements ActionListener  {
 		
 	}
 	
-	
+	/**
+	 * calling the super construct
+	 * @param name
+	 */
 	
 	public ConversationButton(String name){
 		super(name);
 		
 	}
 
+	/**
+	 * let you remove conversation with "X" button
+	 */
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -57,8 +65,8 @@ public class ConversationButton extends JButton implements ActionListener  {
 		
 	
 	}
-	
-	
+
+
 	
 	
 	
