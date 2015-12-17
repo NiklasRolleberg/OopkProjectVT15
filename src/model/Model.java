@@ -1,9 +1,7 @@
 package model;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -40,8 +38,6 @@ public class Model extends Observable implements Observer{
 	 */
 	public void AddConversation(Socket s, String request) {
 		Conversation c = new Conversation(this, s,"chatt"+ (number ++));
-		//Thread t = new Thread(c);
-		//t.start();
 		conversations.add(c);
 		setChanged();
 		notifyObservers();
@@ -58,8 +54,6 @@ public class Model extends Observable implements Observer{
 	public void AddConversation(String ip, int port, String name) {
 		try {
 			Conversation c = new Conversation(this, ip, port,"chatt"+ (number ++));
-			//Thread t = new Thread(c);
-			//t.start();
 			conversations.add(c);
 			setChanged();
 			notifyObservers();
@@ -69,7 +63,7 @@ public class Model extends Observable implements Observer{
 		}
 	}
 	
-	public Conversation getConversation(){
+	public Conversation getConversation() {
 		if(conversations.isEmpty())
 			return null;
 		return conversations.get(conversations.size()-1);
@@ -81,25 +75,21 @@ public class Model extends Observable implements Observer{
 	 */
 	public void removeConversation(String name) {
 		System.out.println("conversations.size"+conversations.size());
-		 for (int i = 0; i<conversations.size(); i++ ){
+		 for (int i = 0; i<conversations.size(); i++ ) {
 			 System.out.println("conversations.get(i).getName(): " + conversations.get(i).getName()+ "\nName: " + name);
-			 if (conversations.get(i).getName().equals(name)){
+			 if (conversations.get(i).getName().equals(name)) {
 				 conversations.get(i).disConnect();
 				 conversations.remove(i);
 				 System.out.println("removed");
 				 setChanged();
 				 notifyObservers();
-				 break;
-				 
+				 break;	 
 			 }
-		
 		 }
-		 	
-		 	
-		
 	}
 	
 	/**
+	 * Get name of User
 	 * @return
 	 * name
 	 */
@@ -108,6 +98,7 @@ public class Model extends Observable implements Observer{
 	}
 	
 	/**
+	 * Get user color
 	 * @return
 	 * color as a string
 	 */
@@ -117,7 +108,7 @@ public class Model extends Observable implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		//TODO something. this method will be called when a conversation recives a message
+		//not used
 	}
 
 	/** Get all conversations
@@ -127,5 +118,4 @@ public class Model extends Observable implements Observer{
 	public ArrayList<Conversation> getConversations() {
 		return conversations;
 	}
-	
 }
