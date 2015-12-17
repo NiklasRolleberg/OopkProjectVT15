@@ -114,11 +114,13 @@ public class Conversation extends Observable  {
 	}
 	
 	
-	public void addConnection(String ip, int port ){
+	public void addConnection(String request, String ip, int port ){
 		Socket s;
 		try {
 			s = new Socket(ip,port);
-			connections.add(new Connection( this,s));
+			Connection c = new Connection( this,s);
+			connections.add(c);
+			c.send("<request>"+request+"</request>");
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

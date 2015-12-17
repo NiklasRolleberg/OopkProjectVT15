@@ -16,6 +16,7 @@ import model.Conversation;
 public class AddFriend implements ActionListener  {
 
 	Conversation conversation;
+	JTextField t0;
 	JTextField t1;
 	JTextField t2;
 	JFrame myFrame2;
@@ -34,11 +35,16 @@ public class AddFriend implements ActionListener  {
 		JPanel p1 = new JPanel();
 		p1.setLayout(new BoxLayout(p1, BoxLayout.PAGE_AXIS));
 		
+		t0 = new JTextField("Vill du vara med?");
 		t1 = new JTextField("110.1156.625.1");
 		t2 = new JTextField("6666");
 		
+		JLabel l0 = new JLabel("Request"); 
 		JLabel l1 = new JLabel("Ip-address"); 
 		JLabel l2 = new JLabel("Port");
+		
+		p1.add(l0);
+		p1.add(t0);
 		p1.add(l1);
 		p1.add(t1);
 		p1.add(l2);
@@ -53,8 +59,8 @@ public class AddFriend implements ActionListener  {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getActionCommand() == "Ok"){
-			conversation.addConnection(t1.getText(),Integer.parseInt(t2.getText()));
 			myFrame2.setVisible(false);
+			conversation.addConnection(t0.getText(), t1.getText(),Integer.parseInt(t2.getText()));
 		}
 		
 	}

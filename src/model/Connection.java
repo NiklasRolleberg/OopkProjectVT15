@@ -26,6 +26,17 @@ public class Connection implements Runnable{
     public void send(String message)
     {
     	System.out.println("Sending message: " + message);
+    	
+    	if(out == null) {
+    		try {
+    			//Thread is not started yet.
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	
     	out.print(message);
     	out.flush();
     }
