@@ -40,7 +40,7 @@ public class Server implements Runnable  {
 				}
 			    
 			    //default request message
-			    String request = "Oder version or broken request-tag wants to talk to you";
+			    String request = "Older version or broken request-tag wants to talk to you";
 			    
 			    byte[] buffer = new byte[128];
 			    if(clientSocket.getInputStream().available()>0) {
@@ -51,7 +51,7 @@ public class Server implements Runnable  {
 				    int stop = request.indexOf("</request>");
 				    
 				    if(start == -1 || stop == -1 || start+9>stop) {
-				    	request = "Oder version or broken request-tag wants to talk to you";
+				    	request = "Older version or broken request-tag wants to talk to you";
 				    }
 				    else {
 				    	start +=9;
@@ -65,7 +65,7 @@ public class Server implements Runnable  {
 			    	controller.addConverstion("hej", clientSocket);	
 			    }
 			    else{
-			    	byte[] sendBuffer = new String("<request> NEEJ JAG VILL INTE PRATA MED DIG! </request>").getBytes("UTF-8");
+			    	byte[] sendBuffer = new String("<request> NEJ JAG VILL INTE PRATA MED DIG! </request>").getBytes("UTF-8");
 			    	clientSocket.getOutputStream().write(sendBuffer);
 			    	clientSocket.getOutputStream().flush();
 			    	clientSocket.close();

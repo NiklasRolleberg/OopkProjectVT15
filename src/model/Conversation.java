@@ -182,7 +182,10 @@ public class Conversation extends Observable {
 	    String msg="";
 	    
     	if (message.contains("<disconnect/>")){
-    		chatHistory += "<p style='font-family:arial;color:#ff0000;font-size:20px;'>blö</p>";
+    		if (name == ""){
+    			name = "Någon";
+    		}
+    		chatHistory += "<p style='font-family:arial;color:#ff0000;font-size:20px;'>"+ name + " har lämnat konversatinen" + "</p>";
     		cv.updateDisplay(chatHistory); 
 			return;
     	}
